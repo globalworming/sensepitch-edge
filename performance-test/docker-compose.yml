@@ -13,3 +13,12 @@ services:
       - ./nginx-proxy/default.conf:/etc/nginx/conf.d/default.conf:ro
       - ./ssl/nginx.crt:/etc/nginx/ssl/nginx.crt:ro
       - ./ssl/nginx.key:/etc/nginx/ssl/nginx.key:ro
+
+  sensepitch-edge:
+    build: ..
+    ports:
+      - "17443:17443"
+    environment:
+      - SENSEPITCH_EDGE_SITES_0_UPSTREAM_TARGET=nginx-static:80
+    depends_on:
+      - nginx-static
